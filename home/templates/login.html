@@ -1,0 +1,19 @@
+<div class="login-container">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Please enter your details to sign in</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <div class="form-options">
+            <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p class="footer-text">
+        New here? <a href="{% url 'signup' %}">Sign up for free</a>
+    </p>
+</div>

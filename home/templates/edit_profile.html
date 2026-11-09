@@ -1,0 +1,66 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Edit Profile | CarePoint{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{% static 'home/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="edit-profile-container">
+
+    <h1>Edit Your Profile</h1>
+    <p>Update your personal information below.</p>
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="edit-profile-form">
+
+        {% csrf_token %}
+
+        <h2>Account Information</h2>
+
+        {% for field in user_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% for error in field.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <h2>Personal Information</h2>
+
+        {% for field in profile_form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+
+                {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="edit-btn">
+            Save Changes
+        </button>
+
+        <a href="{% url 'profile' %}" class="cancel-btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

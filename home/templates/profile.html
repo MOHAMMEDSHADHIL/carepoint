@@ -1,0 +1,193 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Profile | CarePoint{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{% static 'home/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <aside class="profile-sidebar">
+
+        <h2>CarePoint</h2>
+        <p>Patient Dashboard</p>
+
+        <a href="{% url 'profile' %}" class="active">
+            My Profile
+        </a>
+
+        <a href="{% url 'edit_profile' %}">
+            Edit Profile
+        </a>
+
+        <a href="{% url 'booking' %}">
+            Book Appointment
+        </a>
+
+        <a href="{% url 'change_password' %}">
+            Change Password
+        </a>
+
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="logout-link">
+                Logout
+            </button>
+        </form>
+
+    </aside>
+
+
+    <main class="profile-main">
+
+        <div class="profile-header">
+            <div>
+                <h1>My Profile</h1>
+                <p>Manage your personal information</p>
+            </div>
+
+            <a href="{% url 'edit_profile' %}"
+               class="edit-btn">
+                Edit Profile
+            </a>
+        </div>
+
+
+        <section class="profile-card">
+
+            {% if profile_data.profile_picture %}
+                <img src="{{ profile_data.profile_picture.url }}"
+                     class="profile-image"
+                     alt="Profile picture">
+            {% else %}
+                <div class="profile-placeholder">
+                    {{ user.first_name|default:user.username|first|upper }}
+                </div>
+            {% endif %}
+
+            <div>
+                <h2>{{ user.get_full_name|default:user.username }}</h2>
+                <p>@{{ user.username }}</p>
+                <p>{{ user.email }}</p>
+                <span class="status">Active Account</span>
+            </div>
+
+        </section>
+
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="success-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <section class="information-card">
+
+            <h2>Personal Information</h2>
+
+            <div class="information-grid">
+
+                <div>
+                    <label>First Name</label>
+                    <p>{{ user.first_name|default:"Not provided" }}</p>
+                </div>
+
+                <div>
+                    <label>Last Name</label>
+                    <p>{{ user.last_name|default:"Not provided" }}</p>
+                </div>
+
+                <div>
+                    <label>Email</label>
+                    <p>{{ user.email|default:"Not provided" }}</p>
+                </div>
+
+                <div>
+                    <label>Phone</label>
+                    <p>{{ profile_data.phone|default:"Not provided" }}</p>
+                </div>
+
+                <div>
+                    <label>Date of Birth</label>
+                    <p>{{ profile_data.date_of_birth|default:"Not provided" }}</p>
+                </div>
+
+                <div>
+                    <label>Gender</label>
+                    <p>{{ profile_data.gender|default:"Not provided" }}</p>
+                </div>
+
+                <div class="full-width">
+                    <label>Address</label>
+                    <p>{{ profile_data.address|default:"Not provided" }}</p>
+                </div>
+
+                <div>
+                    <label>Username</label>
+                    <p>{{ user.username }}</p>
+                </div>
+
+                <div>
+                    <label>Joined Date</label>
+                    <p>{{ user.date_joined|date:"d M Y" }}</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="information-card">
+
+            <h2>My Appointments</h2>
+
+            {% for appointment in appointments %}
+
+                <div class="appointment-card">
+
+                    <h3>{{ appointment.doctor_name.doctor_name }}</h3>
+
+                    <p>
+                        Department:
+                        {{ appointment.doctor_name.department_name.department_name }}
+                    </p>
+
+                    <p>
+                        Appointment Date:
+                        {{ appointment.booked_on|date:"d M Y" }}
+                    </p>
+
+                    {% if appointment.booked_on >= today %}
+                        <span class="status">Upcoming</span>
+                    {% else %}
+                        <span class="past-status">Past</span>
+                    {% endif %}
+
+                </div>
+
+            {% empty %}
+
+                <p>No appointments found.</p>
+
+                <a href="{% url 'booking' %}" class="edit-btn">
+                    Book an Appointment
+                </a>
+
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

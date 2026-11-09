@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+<section class="department-hero">
+    <div class="container department-hero-inner">
+        <div class="department-hero-copy">
+            <span class="eyebrow">Care that is specialized</span>
+            <h1>Departments built around every stage of care.</h1>
+            <p>
+                From emergency support to advanced treatment, our multidisciplinary departments bring
+                together expert clinicians, diagnostic technology, and patient-focused care in one place.
+            </p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="#department-list">Explore departments</a>
+                <a class="button button-secondary" href="{% url 'contact' %}">Book a visit</a>
+            </div>
+            <ul class="hero-highlights" aria-label="Hospital highlights">
+                <li>24/7 emergency response</li>
+                <li>Experienced specialists</li>
+                <li>Modern diagnostics</li>
+            </ul>
+        </div>
+
+        <div class="hero-card" aria-label="Department overview">
+            <div class="hero-card-top">
+                <span>CarePoint Hospital</span>
+                <strong>Specialty care</strong>
+            </div>
+            <div class="hero-metric-row">
+                <div>
+                    <strong>18+</strong>
+                    <span>specialized services</span>
+                </div>
+                <div>
+                    <strong>150+</strong>
+                    <span>medical experts</span>
+                </div>
+            </div>
+            <div class="hero-card-panel">
+                <h2>Comprehensive treatment</h2>
+                <p>Personalized plans, coordinated care, and timely support for every patient need.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="department-list" class="department-section">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow eyebrow-inline">Our departments</span>
+            <h2>Focused expertise, compassionate care.</h2>
+        </div>
+
+        {% if departments %}
+            <div class="department-grid">
+                {% for d in departments %}
+                    <article class="department-card">
+                        <div class="department-icon" aria-hidden="true">{{ d.department_name|slice:":1"|upper }}</div>
+                        <h3>{{ d.department_name }}</h3>
+                        <p>{{ d.dpt_description }}</p>
+                        <a href="{% url 'contact' %}" class="department-link">Learn more</a>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>No departments have been added yet. Please check back soon.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}About CarePoint Hospital{% endblock %}
+{% block meta_description %}Learn about CarePoint Hospital, our values, medical services, and commitment to compassionate healthcare.{% endblock %}
+
+{% block content %}
+<section class="about-hero">
+    <div class="container about-hero-inner">
+        <div class="about-hero-copy">
+            <span class="eyebrow">About CarePoint</span>
+            <h1>Healthcare with purpose, people, and compassion.</h1>
+            <p>We help our community live healthier lives through trusted clinical expertise, modern care, and a genuine commitment to every patient.</p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="{% url 'doctor' %}">Meet our doctors</a>
+                <a class="button button-secondary" href="{% url 'booking' %}">Book a visit</a>
+            </div>
+        </div>
+
+        <div class="about-hero-card" aria-label="Hospital overview">
+            <span class="about-hero-label">CarePoint since 2010</span>
+            <strong>15+</strong>
+            <p>years of caring for our community</p>
+            <div class="about-hero-divider"></div>
+            <div class="about-stat-row">
+                <div><strong>150+</strong><span>care professionals</span></div>
+                <div><strong>18+</strong><span>specialized services</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-story">
+    <div class="container about-story-inner">
+        <div class="section-heading">
+            <span class="eyebrow eyebrow-inline">Our story</span>
+            <h2>Care that puts people first.</h2>
+        </div>
+        <div class="about-story-copy">
+            <p>CarePoint Hospital was built around a simple belief: healthcare should be personal, clear, and accessible. Our teams work together across specialties to support patients and families at every stage of care.</p>
+            <p>From routine appointments to urgent treatment, we combine experienced clinicians, thoughtful service, and dependable medical technology to deliver care you can trust.</p>
+        </div>
+    </div>
+</section>
+
+<section class="about-values">
+    <div class="container">
+        <div class="section-heading about-values-heading">
+            <div>
+                <span class="eyebrow eyebrow-inline">What guides us</span>
+                <h2>Our values in every interaction.</h2>
+            </div>
+        </div>
+
+        <div class="about-value-grid">
+            <article class="about-value-card">
+                <span class="about-value-number">01</span>
+                <h3>Compassion</h3>
+                <p>We listen, respect each person’s story, and provide care with kindness and dignity.</p>
+            </article>
+            <article class="about-value-card">
+                <span class="about-value-number">02</span>
+                <h3>Excellence</h3>
+                <p>We pursue the highest clinical standards through skill, learning, and quality improvement.</p>
+            </article>
+            <article class="about-value-card">
+                <span class="about-value-number">03</span>
+                <h3>Trust</h3>
+                <p>We communicate clearly, act responsibly, and earn confidence through every decision.</p>
+            </article>
+            <article class="about-value-card">
+                <span class="about-value-number">04</span>
+                <h3>Community</h3>
+                <p>We work together with patients and partners to improve health beyond hospital walls.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="about-care">
+    <div class="container about-care-inner">
+        <div class="about-care-copy">
+            <span class="eyebrow">A connected approach</span>
+            <h2>One team, working around your health.</h2>
+            <p>Our doctors, nurses, and support teams coordinate your care, helping you feel informed and supported from arrival through recovery.</p>
+            <ul class="check-list">
+                <li>Patient-centered treatment plans</li>
+                <li>Clear communication at every step</li>
+                <li>Coordinated specialist support</li>
+            </ul>
+        </div>
+
+        <div class="about-care-panel">
+            <div class="about-care-icon" aria-hidden="true">+</div>
+            <blockquote>“Better health begins with being heard.”</blockquote>
+            <p>CarePoint Hospital care promise</p>
+        </div>
+    </div>
+</section>
+
+<section class="home-cta">
+    <div class="container home-cta-inner">
+        <div>
+            <span class="eyebrow eyebrow-light">Start your care journey</span>
+            <h2>We are here to help.</h2>
+            <p>Talk with our team or schedule an appointment online.</p>
+        </div>
+        <a class="button button-light" href="{% url 'booking' %}">Book an appointment</a>
+    </div>
+</section>
+{% endblock %}

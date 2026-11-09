@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Book an Appointment | CarePoint Hospital{% endblock %}
+
+{% block content %}
+<section class="booking-page">
+    <div class="container booking-page-inner">
+        <header class="booking-heading">
+            <p class="eyebrow">Appointments</p>
+            <h1>Book an appointment</h1>
+            <p>CarePoint Hospital</p>
+        </header>
+
+        <div class="booking-panel">
+            <div class="booking-panel-heading">
+                <h2>Patient details</h2>
+                <p>All fields are required.</p>
+            </div>
+
+            <form method="POST" class="booking-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="booking-error-summary" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="booking-fields">
+                    {% for field in form %}
+                        <div class="booking-field booking-field-{{ field.name }}">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="booking-help">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <p class="booking-field-error" role="alert">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="booking-actions">
+                    <button type="submit" class="booking-btn">Confirm booking</button>
+                    <a class="booking-contact-link" href="{% url 'contact' %}">Back to Contact</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

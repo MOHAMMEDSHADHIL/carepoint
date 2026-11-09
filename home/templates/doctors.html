@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+
+{% block title %}Our Doctors{% endblock %}
+
+{% block content %}
+<section class="doctor-hero">
+    <div class="container doctor-hero-inner">
+        <div>
+            <span class="eyebrow">Meet our medical team</span>
+            <h1>Expert doctors, caring for you.</h1>
+            <p>Our physicians combine clinical expertise with a compassionate approach, giving every patient personalized and dependable care.</p>
+        </div>
+        <div class="doctor-hero-stat" aria-label="Doctor team overview">
+            <strong>{{ doctors|length }}</strong>
+            <span>specialist doctors</span>
+        </div>
+    </div>
+</section>
+
+<section class="doctor-section">
+    <div class="container">
+        <div class="section-heading doctor-heading">
+            <div>
+                <span class="eyebrow eyebrow-inline">Find your specialist</span>
+                <h2>Care from people you can trust.</h2>
+            </div>
+            <a class="button button-secondary" href="{% url 'booking' %}">Book an appointment</a>
+        </div>
+
+        {% if doctors %}
+            <div class="doctor-grid">
+                {% for doctor in doctors %}
+                    <article class="doctor-card">
+                        <div class="doctor-photo">
+                            {% if doctor.doctor_image %}
+                                <img src="{{ doctor.doctor_image.url }}" alt="Portrait of {{ doctor.doctor_name }}">
+                            {% else %}
+                                <div class="doctor-avatar" aria-hidden="true">{{ doctor.doctor_name|slice:":1"|upper }}</div>
+                            {% endif %}
+                            <span class="doctor-status">Available</span>
+                        </div>
+
+                        <div class="doctor-card-body">
+                            <span class="doctor-department">{{ doctor.department_name.department_name }}</span>
+                            <h3>{{ doctor.doctor_name }}</h3>
+                            <p>{{ doctor.doctor_specialization }}</p>
+                            <a class="doctor-link" href="{% url 'booking' %}?doctor={{ doctor.id }}">Book appointment</a>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>No doctors have been added yet. Please check back soon.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Smart Doctor Recommendation{% endblock %}
+
+{% block content %}
+<section class="recommendation-hero">
+    <div class="container recommendation-hero-inner">
+        <div class="recommendation-copy">
+            <span class="eyebrow">Smart care finder</span>
+            <h1>Find the right specialist for your symptoms.</h1>
+            <p>Describe what you are feeling and we will suggest doctors whose specialties may be relevant.</p>
+        </div>
+
+        <aside class="recommendation-assurance" aria-label="Service information">
+            <span class="assurance-icon" aria-hidden="true">+</span>
+            <div>
+                <strong>Guidance, not diagnosis</strong>
+                <span>Always consult a qualified medical professional.</span>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<section class="recommendation-section">
+    <div class="container">
+        <div class="symptom-search-card">
+            <div class="symptom-search-heading">
+                <span class="symptom-step">01</span>
+                <div>
+                    <h2>Describe your symptoms</h2>
+                    <p>Use a few clear words, such as “skin rash and itching.”</p>
+                </div>
+            </div>
+
+            <form method="POST" class="symptom-form">
+                {% csrf_token %}
+                <label for="symptoms">What are you experiencing?</label>
+                <div class="symptom-input-row">
+                    <textarea
+                        id="symptoms"
+                        name="symptoms"
+                        rows="4"
+                        placeholder="Example: I have a skin rash and itching"
+                        required>{{ symptoms }}</textarea>
+                    <button class="button button-primary recommendation-submit" type="submit">
+                        Find doctors
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if searched %}
+        <div class="recommendation-results">
+            <div class="recommendation-results-heading">
+                <div>
+                    <span class="eyebrow eyebrow-inline">Recommended for you</span>
+                    <h2>Suggested specialists</h2>
+                </div>
+                <span class="result-count">
+                    {{ doctors|length }} {% if doctors|length == 1 %}doctor{% else %}doctors{% endif %}
+                </span>
+            </div>
+
+            {% if doctors %}
+                <div class="recommendation-grid">
+                    {% for doctor in doctors %}
+                    <article class="recommendation-card">
+                        <div class="recommendation-photo">
+                            {% if doctor.doctor_image %}
+                                <img src="{{ doctor.doctor_image.url }}" alt="Portrait of {{ doctor.doctor_name }}">
+                            {% else %}
+                                <div class="recommendation-avatar" aria-hidden="true">{{ doctor.doctor_name|slice:":1"|upper }}</div>
+                            {% endif %}
+                            <span class="doctor-status">Available</span>
+                        </div>
+                        <div class="recommendation-card-body">
+                            <span class="doctor-department">{{ doctor.department_name.department_name }}</span>
+                            <h3>{{ doctor.doctor_name }}</h3>
+                            <p>{{ doctor.doctor_specialization }}</p>
+                            <a class="doctor-link" href="{% url 'booking' %}?doctor={{ doctor.id }}">Book appointment</a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="recommendation-empty">
+                    <span class="recommendation-empty-icon" aria-hidden="true">?</span>
+                    <div>
+                        <h3>No matching specialist found</h3>
+                        <p>Try including symptoms such as headache, fever, chest pain, joint pain, or itching.</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="medical-disclaimer">
+            <span aria-hidden="true">i</span>
+            <p><strong>Important:</strong> This tool provides specialty guidance only and does not diagnose medical conditions. Seek urgent care for severe or emergency symptoms.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

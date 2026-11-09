@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Contact CarePoint Hospital{% endblock %}
+{% block meta_description %}Contact CarePoint Hospital for appointments, patient support, emergency care, and general enquiries.{% endblock %}
+
+{% block content %}
+<section class="contact-hero">
+    <div class="container contact-hero-inner">
+        <div class="contact-hero-copy">
+            <span class="eyebrow">Get in touch</span>
+            <h1>We are here when you need us.</h1>
+            <p>Questions about care, appointments, or hospital services? Our team is ready to help you find the right support.</p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="{% url 'booking' %}">Book an appointment</a>
+                <a class="button button-secondary" href="tel:+911800123456">Call the hospital</a>
+            </div>
+        </div>
+
+        <div class="contact-emergency-card">
+            <span>Emergency support</span>
+            <strong>24 / 7</strong>
+            <p>If you or someone else is in immediate danger, call emergency services now.</p>
+            <a href="tel:112" class="contact-emergency-link">Call emergency: 112</a>
+        </div>
+    </div>
+</section>
+
+<section class="contact-main">
+    <div class="container">
+        <div class="section-heading contact-heading">
+            <div>
+                <span class="eyebrow eyebrow-inline">Contact information</span>
+                <h2>Choose the support you need.</h2>
+            </div>
+        </div>
+
+        <div class="contact-grid">
+            <article class="contact-card">
+                <div class="contact-card-icon" aria-hidden="true">@</div>
+                <h3>Appointments</h3>
+                <p>Schedule your visit with a doctor or specialist.</p>
+                <a href="{% url 'booking' %}">Book online</a>
+            </article>
+
+            <article class="contact-card">
+                <div class="contact-card-icon" aria-hidden="true">☎</div>
+                <h3>Call us</h3>
+                <p>Speak with our reception and patient support team.</p>
+                <a href="tel:+911800123456">+91 1800 123 456</a>
+            </article>
+
+            <article class="contact-card">
+                <div class="contact-card-icon" aria-hidden="true">✉</div>
+                <h3>Email us</h3>
+                <p>Send general questions and administrative enquiries.</p>
+                <a href="mailto:contact@carepointhospital.com">contact@carepointhospital.com</a>
+            </article>
+
+            <article class="contact-card contact-card-address">
+                <div class="contact-card-icon" aria-hidden="true">⌖</div>
+                <h3>Visit the hospital</h3>
+                <p>CarePoint Hospital<br>Central Road, Medical District</p>
+                <a href="{% url 'department' %}">View departments</a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="contact-hours">
+    <div class="container contact-hours-inner">
+        <div class="contact-hours-copy">
+            <span class="eyebrow eyebrow-inline">Hospital hours</span>
+            <h2>Here every day for your care.</h2>
+            <p>Outpatient departments may operate during separate scheduled hours. Please confirm your appointment before traveling.</p>
+        </div>
+
+        <div class="contact-hours-panel">
+            <div><span>Emergency</span><strong>24 hours</strong></div>
+            <div><span>Reception</span><strong>6:00 AM – 10:00 PM</strong></div>
+            <div><span>Outpatient visits</span><strong>8:00 AM – 6:00 PM</strong></div>
+            <div><span>Laboratory</span><strong>6:30 AM – 8:00 PM</strong></div>
+        </div>
+    </div>
+</section>
+
+<section class="home-cta">
+    <div class="container home-cta-inner">
+        <div>
+            <span class="eyebrow eyebrow-light">Need to see a specialist?</span>
+            <h2>Start with an appointment.</h2>
+            <p>Choose a convenient time and share your details securely.</p>
+        </div>
+        <a class="button button-light" href="{% url 'booking' %}">Schedule a visit</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}CarePoint Hospital{% endblock %}
+{% block meta_description %}Trusted hospital care, experienced doctors, and convenient appointments for you and your family.{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+    <div class="container home-hero-inner">
+        <div class="home-hero-copy">
+            <span class="eyebrow">Healthcare you can trust</span>
+            <h1>Better care for every stage of life.</h1>
+            <p>Our team combines experienced specialists, modern facilities, and genuine compassion to help you feel your best.</p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="{% url 'booking' %}">Book an appointment</a>
+                <a class="button button-secondary" href="{% url 'doctor' %}">Meet our doctors</a>
+                <a class="button button-tertiary" href="{% url 'smart_recommendation' %}">Get smart recommendations</a>
+            </div>
+        </div>
+
+        <div class="home-hero-visual" aria-label="CarePoint Hospital highlights">
+            <div class="care-orbit care-orbit-one"><span>24/7</span><small>Emergency care</small></div>
+            <div class="care-orbit care-orbit-two"><span>150+</span><small>Medical experts</small></div>
+            <div class="home-hero-mark" aria-hidden="true">
+                <span>+</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-services">
+    <div class="container">
+        <div class="section-heading home-heading">
+            <div>
+                <span class="eyebrow eyebrow-inline">How we can help</span>
+                <h2>Complete care, close to home.</h2>
+            </div>
+            <a class="button button-secondary" href="{% url 'department' %}">View all departments</a>
+        </div>
+
+        {% if departments %}
+        <div class="home-service-grid">
+            {% for department in departments|slice:":3" %}
+            <article class="home-service-card">
+                <span class="service-number">0{{ forloop.counter }}</span>
+                <div class="department-icon" aria-hidden="true">{{ department.department_name|slice:":1"|upper }}</div>
+                <h3>{{ department.department_name }}</h3>
+                <p>{{ department.dpt_description }}</p>
+                <a href="{% url 'department' %}" class="department-link">Explore care</a>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="home-service-grid">
+            <article class="home-service-card">
+                <span class="service-number">01</span><h3>Emergency care</h3>
+                <p>Rapid assessment and treatment when every minute matters.</p>
+                <a href="{% url 'contact' %}" class="department-link">Contact us</a>
+            </article>
+            <article class="home-service-card">
+                <span class="service-number">02</span><h3>Specialist clinics</h3>
+                <p>Expert guidance and tailored treatment from our medical specialists.</p>
+                <a href="{% url 'doctor' %}" class="department-link">Find a doctor</a>
+            </article>
+            <article class="home-service-card">
+                <span class="service-number">03</span><h3>Diagnostic services</h3>
+                <p>Modern laboratory and imaging services for clear, timely answers.</p>
+                <a href="{% url 'booking' %}" class="department-link">Book a visit</a>
+            </article>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="home-doctors">
+    <div class="container home-doctors-inner">
+        <div class="home-doctors-copy">
+            <span class="eyebrow">Expert medical team</span>
+            <h2>Doctors who listen, understand, and care.</h2>
+            <p>Our physicians work across specialties to give each patient a coordinated and personal care experience.</p>
+            <ul class="check-list">
+                <li>Personalized treatment plans</li>
+                <li>Experienced multidisciplinary team</li>
+                <li>Convenient appointment booking</li>
+            </ul>
+            <a class="button button-primary" href="{% url 'doctor' %}">View our doctors</a>
+        </div>
+
+        {% if doctors %}
+        <div class="home-doctor-list">
+            {% for doctor in doctors|slice:":3" %}
+            <article class="home-doctor-card">
+                <div class="home-doctor-photo">
+                    {% if doctor.doctor_image %}
+                    <img src="{{ doctor.doctor_image.url }}" alt="Portrait of {{ doctor.doctor_name }}">
+                    {% else %}
+                    <span aria-hidden="true">{{ doctor.doctor_name|slice:":1"|upper }}</span>
+                    {% endif %}
+                </div>
+                <div>
+                    <small>{{ doctor.department_name.department_name }}</small>
+                    <h3>{{ doctor.doctor_name }}</h3>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="home-doctor-placeholder">
+            <strong>150+</strong>
+            <span>trusted medical experts</span>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="home-cta">
+    <div class="container home-cta-inner">
+        <div>
+            <span class="eyebrow eyebrow-light">Ready when you are</span>
+            <h2>Need medical care?</h2>
+            <p>Our team is here to help you take the next step.</p>
+        </div>
+        <a class="button button-light" href="{% url 'booking' %}">Schedule an appointment</a>
+    </div>
+</section>
+{% endblock %}
