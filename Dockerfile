@@ -1,25 +1,25 @@
-FROM python:3.11.6-slim
 
-# Prevent Python from creating .pyc files
+FROM python:3.11-slim
+
+# Python configuration
 ENV PYTHONDONTWRITEBYTECODE=1
-
-# Show Python output immediately
 ENV PYTHONUNBUFFERED=1
 
-# Set working directory
+# Project directory
 WORKDIR /app
 
-# Copy requirements first
+# Install dependencies
 COPY requirements.txt .
-
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the complete Django project
+# Copy project files
 COPY . .
 
-# Django port
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Application port
 EXPOSE 8000
 
-# Start Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Run migrations and start Gunicorn
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn hms.wsgi:application --bind 0.0.0.0:${PORT:-8000}"]

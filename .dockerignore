@@ -1,15 +1,24 @@
-Put:
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
 venv/
 env/
 .venv/
 
-__pycache__/
-*.pyc
-*.pyo
-
+# Git
 .git/
 .gitignore
 
+# Environment variables
 .env
+.env.*
 
-*.sqlite3-journal-
+# Local databases
+*.sqlite3
+*.sqlite3-journal
+
+# User uploads and generated static files
+media/
+staticfiles/
